@@ -12,6 +12,7 @@ TYPE_OF_SIZES: tuple = (
     ('Xl', 'XL'),
 )
 
+
 TYPE_OF_PYNATA: tuple = (
     ('Circle', 'Круглая'),
     ('Shield', 'Щит'),
