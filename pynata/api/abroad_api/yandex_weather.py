@@ -96,13 +96,14 @@ def get_weather_data():
     key = str(os.getenv('YANDEX_WEATHER_KEY'))
     headers = {'X-Yandex-API-Key': key}
     params = {'lat': 57.626559, 'lon': 39.893813}
-
     weather_data = requests.get(url, headers=headers, params=params)
-    # pprint(weather_data.json())
-
     return weather_data.json()
 
 
 def parse_data(data):
     """Извлечение необходимых данных."""
-    pass
+    temperature = data['fact']['temp']
+    condition = CONDITION_STATUS[data['fact']['condition']]
+    return temperature, condition
+
+
