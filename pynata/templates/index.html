@@ -16,14 +16,22 @@
     <header>
       {% include 'includes/header.html' %}
     </header>
-    <div class="container py-6">
-      <marquee scrollamount="10" style="color: white;
-      font-size: 40px;
-      font-weight: bolder;
-      line-height: 150%;
-      text-shadow: #000000 0px 1px 1px;">
-      Здесь могла быть ваша реклама &#129315;
-      </marquee>
+    <div class="container">
+      <div class="row">
+        <div class="col-3" style="color: black; font-size: 20px">
+          <img src="{% static 'img/yandex-weather.svg' %}" class="rounded float-left">
+          Ярославль: {{ temp }} ℃, {{ cond }}
+          <img src="https://yastatic.net/weather/i/icons/funky/dark/{{icon}}.svg">
+        </div>
+        <div class="col-8">
+          <marquee scrollamount="10" style="color: lightskyblue;
+           font-size: 40px; font-weight: bolder;
+           line-height: 150%;
+           text-shadow: #000000 0px 1px 1px;">
+            Акция! При заказе Пиньяты и наполнения XL, доставка и палка - в подарок !
+          </marquee>
+        </div>
+      </div>
     </div>
   </head>
   <body style="background-color: white">
@@ -43,10 +51,10 @@
           Размер: {{ card.name }}
         </li>
         <li>
-          Цена: {{ card.cost }}
+          <b> Цена: {{ card.cost }} руб. </b>
         </li>
         <li>
-          Вес: {{ card.filling.weigth }}
+          Вес: {{ card.filling.weigth }} гр.
         </li>
         {% thumbnail card.image "960x339" crop="center" upscale=True as im %}
           <img class="card-img my-2" src="{{ im.url }}">

@@ -104,6 +104,7 @@ def parse_data(data):
     """Извлечение необходимых данных."""
     temperature = data['fact']['temp']
     condition = CONDITION_STATUS[data['fact']['condition']]
-    return temperature, condition
+    icon = data['fact']['icon']
+    return temperature, condition, icon
 
 
