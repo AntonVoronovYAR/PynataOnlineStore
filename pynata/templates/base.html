@@ -1,0 +1,33 @@
+{% load static %}
+<html lang="ru" xmlns="http://www.w3.org/1999/html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-TileColor" content="#000">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <title>
+      {% block title %}
+      Онлайн-магазин пиньят Yarpinata
+      {% endblock %}
+    </title>
+    <header>
+      {% include 'includes/header.html' %}
+    </header>
+    {% include 'includes/api_and_adv.html' %}
+  </head>
+  <body style="background-color: WhiteSmoke">
+    <div class="container py-6">
+    <h1> Магазин Пиньят </h1>
+    <main>
+      {% block content %}
+      Где контент то?
+      {% endblock %}
+    </main>
+    <footer>
+      {% include 'includes/footer.html' %}
+    </footer>
+  </div>
+  </body>
+</html>

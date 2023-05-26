@@ -23,6 +23,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'cards.apps.CardsConfig',
+    'users.apps.UsersConfig',
+    'core.apps.CoreConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -97,8 +99,17 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 
-LANGUAGE_CODE = 'en-us'
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
+
+LANGUAGE_CODE = 'ru'
+
+LOGIN_URL = 'users:login'
+
+LOGIN_REDIRECT_URL = 'cards:main_page'
+
+LOGOUT_REDIRECT_URL = 'cards:main_page'
 
 TIME_ZONE = 'UTC'
 

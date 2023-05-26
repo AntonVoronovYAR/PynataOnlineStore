@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -20,6 +21,7 @@ TYPE_OF_PYNATA: tuple = (
 
 
 class Filling(models.Model):
+    """Наполнение Пиньяты."""
     name = models.CharField(max_length=50, help_text='Наименование')
     description = models.TextField(help_text='Описание')
     size_type = models.CharField(choices=TYPE_OF_SIZES, max_length=50, help_text='Тип наполнения')
@@ -35,6 +37,7 @@ class Filling(models.Model):
 
 
 class Card(models.Model):
+    """Карточка Пиньяты."""
     name = models.CharField(max_length=50, help_text='Наименование')
     description = models.TextField(help_text='Описание')
     pynata_type = models.CharField(choices=TYPE_OF_PYNATA, max_length=50, help_text='Форма')
@@ -57,6 +60,7 @@ class Card(models.Model):
 
 
 class Service(models.Model):
+    """Карточка услуги."""
     name = models.CharField(max_length=50, help_text='Наименование')
     cost = models.IntegerField(help_text='Цена')
     image = models.ImageField(
@@ -69,6 +73,7 @@ class Service(models.Model):
 
 
 class Feedback(models.Model):
+    """Отзывы."""
     card = models.ForeignKey(
         Card,
         blank=True,
@@ -84,8 +89,14 @@ class Feedback(models.Model):
         help_text='Пользователь'
     )
     text = models.TextField(help_text='Текст отзыва')
+    rating = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)],
+        null=True,
+        help_text='Рейтинг'
+    )
     created = models.DateTimeField(auto_now_add=True, help_text='Дата отзыва')
 
     def __str__(self):
         return f'{self.author}: {self.text[:MAX_TEXT_LEN]}'
+
 

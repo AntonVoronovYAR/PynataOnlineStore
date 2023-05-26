@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% load user_filters %}
+{% block title %}
+{{ card.text|truncatechars:30 }}
+{% endblock %}
+{% block content %}
+<div class="row">
+  <aside class="col-12 col-md-3">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <h5>Название: {{ card.name }}</h5>
+      </li>
+      <li class="list-group-item">
+        <h5>Размер: {{ card.size_type }}</h5>
+      </li>
+      <li class="list-group-item">
+        <h5>Цена: {{ card.cost }} руб.</h5>
+      </li>
+      <li class="list-group-item">
+        <h5>Вес: {{ card.filling.weigth }} гр.</h5>
+      </li>
+    </ul>
+  </aside>
+  <article class="col-12 col-md-9">
+    {% thumbnail card.image "960x339" crop="center" upscale=True as im %}
+      <img class="card-img my-2" src="{{ im.url }}">
+    {% endthumbnail %}
+    <p>Описание: {{ card.description }}</p>
+{% if user.is_authenticated %}
+  <div class="card my-4">
+    <h5 class="card-header">Добавить отзыв:</h5>
+    <div class="card-body">
+      <form method="post" action="{% url 'cards:add_feedback' card.id %}">
+        {% csrf_token %}
+        <div class="form-group mb-2">
+          {{ feedback_form.text|addclass:"form-control" }}
+        </div>
+        <h5 class="card-body">Оценка:</h5>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+          <label class="form-check-label" for="inlineRadio1">1</label>
+          {{ feedback_form.rating|addclass:"form-control" }}
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+          <label class="form-check-label" for="inlineRadio2">2</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+          <label class="form-check-label" for="inlineRadio3">3</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4">
+          <label class="form-check-label" for="inlineRadio4">4</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option5">
+          <label class="form-check-label" for="inlineRadio5">5</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+      </form>
+    </div>
+  </div>
+{% endif %}
+{% for feedback in feedbacks %}
+  <div class="media mb-4">
+    <div class="media-body">
+      <h5 class="mt-0">
+        {{ feedback.author.username }}
+      </h5>
+      <p>
+        {{ feedback.text }}
+      </p>
+      <p>
+        {{ feedback.rating }}
+      </p>
+    </div>
+  </div>
+{% endfor %}
+  </article>
+</div>
+{% endblock %}

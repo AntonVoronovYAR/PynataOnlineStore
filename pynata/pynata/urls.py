@@ -5,6 +5,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('cards.urls')),
+    path('auth/', include('users.urls')),
+    path('auth/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
 ]
 
