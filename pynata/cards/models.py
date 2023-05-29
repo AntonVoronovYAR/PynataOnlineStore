@@ -1,5 +1,4 @@
 from django.db import models
-from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -17,6 +16,14 @@ TYPE_OF_PYNATA: tuple = (
     ('Circle', 'Круглая'),
     ('Shield', 'Щит'),
     ('Figure', 'Фигурная'),
+)
+
+RATINGS = (
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5)
 )
 
 
@@ -90,7 +97,7 @@ class Feedback(models.Model):
     )
     text = models.TextField(help_text='Текст отзыва')
     rating = models.IntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(5)],
+        choices=RATINGS,
         null=True,
         help_text='Рейтинг'
     )

@@ -46,3 +46,8 @@ def parse_data(data: dict) -> dict:
     return weather
 
 
+def main(request):
+    data = get_weather_data()
+    weather = parse_data(data)
+    return {'weather': weather}
+
